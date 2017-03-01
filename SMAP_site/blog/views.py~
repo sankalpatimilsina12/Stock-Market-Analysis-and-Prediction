@@ -1,0 +1,92 @@
+from django.shortcuts import render
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .models import stock_names
+from .models import stocks_data
+from django.http import HttpResponse, JsonResponse
+from io import BytesIO
+import base64
+from io import StringIO
+from pylab import *
+import json
+
+# Create your views here.
+def index(request):
+    return render(request, 'blog/index.html', {})
+def home(request):
+    return render(request, 'blog/index.html', {})
+def listed_companies(request):
+    item = stock_names.get_all_names()
+    return render(request, 'blog/listed_companies.html', {'item': item})
+
+def testimonials(request):
+    return render(request, 'blog/testimonials.html', {})
+def projects(request):
+    return render(request, 'blog/projects.html', {})
+def contact(request):
+    return render(request, 'blog/contact.html', {})
+
+
+def simple(request):
+    import random
+    import django
+    import datetime
+
+    from matplotlib import pylab
+    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+    from matplotlib.figure import Figure
+    from matplotlib.dates import DateFormatter
+    import matplotlib.pyplot as plt
+    import PIL, PIL.Image
+
+    # Construct the graph
+    t = arange(0.0, 2.0, 0.01)
+    s = sin(2*pi*t)
+    plot(t, s, linewidth=1.0)
+
+    xlabel('time (s)')
+    ylabel('voltage (mV)')
+    title('About as simple as it gets, folks')
+    grid(True)
+
+    # Store image in a string buffer
+    buffer = BytesIO()
+    canvas = pylab.get_current_fig_manager().canvas
+    canvas.draw()
+    pilImage = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
+    pilImage.save(buffer, "PNG")
+    pylab.close()
+    data = buffer.getvalue()
+    data = base64.b64encode(data)
+    text_file = open("/home/sankalpa/output.txt", "wb")
+    text_file.write(data)
+    text_file.close()
+    print(data)
+    #return JsonResponse(json.dumps(_dict), content_type='application/json')
+    return HttpResponse(data, content_type='text/plain')
+
+
+
+
+
+
+
+def listing(request, stock_name):
+    data = stocks_data.get_data(stock_name)
+    paginator = Paginator(data, 50)
+
+    page = request.GET.get('page')
+    try:
+        current_data = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        current_data = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range, deliver last page.
+        current_data = paginator.page(paginator.num_pages)
+
+    _dict = {
+        'current_data': current_data,
+        'data': data
+    }
+
+    return render(request, 'blog/stocks/' + stock_name + '.html', _dict)

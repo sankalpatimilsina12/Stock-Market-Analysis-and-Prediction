@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Stock Market Analysis</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href={% static "css/bootstrap.min.css" %} rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href={% static "css/small-business.css" %} rel="stylesheet">
+
+</head>
+<style>
+#buttonId {
+    margin-right: 17px;
+    width: 18%;
+}
+.myClass {
+    width: 95%;
+}
+</style>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="listed_companies.html">Companies</a>
+                    </li>
+                    <li>
+                        <a href="analysis.html">Analysis</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">About Us</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Heading Row -->
+        <div class="row">
+            <div class="col-md-8">
+                <img class="img-responsive img-rounded" src="{% static "images/stock_image.jpg" %}" alt="">
+            </div>
+            <!-- /.col-md-8 -->
+            <div class="col-md-4">
+                <h1>Stock Market Analysis</h1>
+                <p>Stock Market Analysis and Prediction is the project on technical analysis, visualization and prediction using data proved by NEPSE(Nepal Stock Exchange). The core objective of this project is t comparatively analysie the effectiveness of different prediction algorithms on stock market data and provide general insight on this data to user through visualization.</p>
+                <!--<a class="btn btn-primary btn-lg" href="#">Call to Action!</a>-->
+            </div>
+            <!-- /.col-md-4 -->
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="myClass">
+                    <p style="font-size: 18px; font-style: italic;">Contact Us:</p>
+                    <table class="table">
+                        <tbody>
+                            <form class="form-horizontal" role="form" method="post">
+                                {% csrf_token %}
+                                <tr class="info">
+                                    <div class="form-group">
+                                        <td><label class="col-sm-2 control-label" for="features" style="margin-top: 8px">Name</label>
+                                        <div class="col-sm-10">
+                                            <input id="input1" style="width:100%" type="text" placeholder="Name" class="form-control">
+                                        </div>
+                                        </td>
+                                    </div>
+                                </tr>
+                                <tr class="success">
+                                    <div class="form-group">
+                                        <td><label class="col-sm-2 control-label" for="features" style="margin-top: 8px">Email</label>
+                                        <div class="col-sm-10">
+                                            <input id="input2" style="width:100%" type="text" placeholder="Email" class="form-control">
+                                        </div>
+                                        </td>
+                                    </div>
+                                </tr>
+                                <tr class="danger">
+                                    <div class="form-group">
+                                        <td><label class="col-sm-2 control-label" for="features" style="margin-top: 8px">Subject</label>
+                                        <div class="col-sm-10">
+                                            <input id="input3" style="width:100%" type="text" placeholder="Subject" class="form-control">
+                                        </div>
+                                        </td>
+                                    </div>
+                                </tr>
+                                <tr class="info">
+                                    <div class="form-group">
+                                        <td><label class="col-sm-2 control-label" for="features" style="margin-top: 8px">Text</label>
+                                        <div class="col-sm-10">
+                                            <textarea id="input4" style="width:100% " type="text" class="form-control"></textarea>
+                                        </div>
+                                        </td>
+                                    </div>
+                                </tr>
+                            </form>
+                    <tr class="danger">
+                        <td><button id="buttonId" type="submit" class="btn btn-danger pull-right" data-dismiss="modal">Submit</button></td>
+                    </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
